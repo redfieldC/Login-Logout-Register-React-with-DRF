@@ -3,6 +3,7 @@ import { registerUser, loginUser, logoutUser } from './services/api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import List from './pages/List';
+import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
 
@@ -13,7 +14,7 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [refreshToken, setRefreshToken] = useState(null);
-
+    const navigate = useNavigate();
     const register = async (username, password, email) => {
       try {
         // Attempt to register the user by calling the backend API
@@ -21,6 +22,7 @@ export const AuthProvider = ({ children }) => {
 
         // Show success toast notification
         toast.success(`User with username "${username}" registered successfully!`);
+        navigate("/login")
     } catch (error) {
         // Log the error response to help with debugging
         console.error('Registration error:', error);
