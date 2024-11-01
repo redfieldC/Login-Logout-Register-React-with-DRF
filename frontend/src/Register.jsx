@@ -15,6 +15,9 @@ const Register = () => {
         await register(username, password, email);
         // Optionally, redirect or show a success message here
     };
+    const handleLoginRedirect=()=>{
+        navigate("/login")
+    }
 
     return (
         <form onSubmit={handleRegister}>
@@ -22,6 +25,12 @@ const Register = () => {
             <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
             <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
             <button type="submit">Register</button>
+            <div className="container">
+                already have an account? 
+                <button onClick={handleLoginRedirect}>
+                Login!
+                </button>
+            </div>
         </form>
     );
 };

@@ -24,17 +24,15 @@ export const AuthProvider = ({ children }) => {
         toast.success(`User with username "${username}" registered successfully!`);
         navigate("/login")
     } catch (error) {
-        // Log the error response to help with debugging
-        console.error('Registration error:', error);
-
-        // Show an error toast notification
-        toast.error("Oops! Something went wrong. Please try again.");
-
-        // Log more error details if available
-        if (error.response && error.response.data) {
-            console.error('Error details:', error.response.data);
-        } else {
-            console.error('Unexpected error occurred:', error.message);
+        if (error.response && error.response.data.type === "USERNAME_TAKEN") {
+            toast.error("Username is already taken.");
+        } 
+        if (error.response && error.response.data.type === "EMAIL_TAKEN") {
+            toast.error("EMAIL is already taken.");
+        } 
+        
+        else {
+            toast.error("Oops! Something went wrong. Please try again.");
         }
     }
     };
