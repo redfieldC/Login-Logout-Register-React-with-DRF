@@ -7,6 +7,8 @@ import { ToastContainer } from 'react-toastify';
 import Register from "./Register";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from "./Login";
+import List from "./pages/List";
+import ProtectedRoutes from "./pages/ProtectedRoutes";
 
 function App() {
   return (
@@ -18,6 +20,14 @@ function App() {
           <Routes>
             <Route path="/" element={<Register />} />
             <Route path="/login" element={<Login />} />
+            <Route
+                        path="/list"
+                        element={
+                            <ProtectedRoutes>
+                                <List />
+                            </ProtectedRoutes>
+                        }
+                    />
           </Routes>
         </div>
       </AuthProvider>

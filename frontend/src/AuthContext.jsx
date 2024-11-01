@@ -38,10 +38,23 @@ export const AuthProvider = ({ children }) => {
     };
 
     const login = async (username, password) => {
-        const response = await loginUser(username, password);
-        setUser(response.data.username);
-        setRefreshToken(response.data.refresh);
+        try {
+            const response = await loginUser(username, password);
+            setUser(response.data.username);
+            setRefreshToken(response.data.refresh);
+            toast.success("Login successful!");
+            navigate("/list")
+        } catch (error) {
+            if (error.response && error.response.data.type === "INVALID_CREDENTIALS") {
+                // Show a specific error message for invalid credentials
+                toast.error("Invalid username or password. Please try again.");
+            } else {
+                // Generic error message for any other issues
+                toast.error("Oops! Something went wrong. Please try again.");
+            }
+        }
     };
+    
 
     const logout = async () => {
         await logoutUser(refreshToken);
